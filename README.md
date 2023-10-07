@@ -2,7 +2,7 @@
 
  <h1>Introduction</h1>
  
-  The problem that I am trying to solve is feeling unorganized and lost while doing daily tasks. A to-do application can allow the customer to keep track of daily tasks and feel more organized. After checking completed tasks from the to-do list, the customer will also feel a sense of accomplishment.
+  The problem that I am trying to solve is feeling unorganized and lost while doing daily tasks. A to-do application can allow the customer to keep track of daily tasks and feel more organized. After checking completed tasks from the to-do list, they will also feel a sense of accomplishment.
  
   <h1>Features</h1>
  
