@@ -1,25 +1,18 @@
-// ignore_for_file: unnecessary_null_comparison, library_private_types_in_public_api, non_constant_identifier_names
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 import '../providers/task.dart';
 
-//Show a bottom sheet that allows the user to create or edit a task.
-//### MISSING FEATURES ###
-// Proper Form Focus and keyboard actions.
-// BottomModalSheet size is too big and doesn't work proper with keyboard.
-// Keyboard must push the sheet up so the "ADD TASK" button is visible.
-
 class AddNewTask extends StatefulWidget {
   final String id;
   final bool isEditMode;
 
-  const AddNewTask({super.key, 
+  const AddNewTask({
+    Key? key,
     required this.id,
     required this.isEditMode,
-  });
+  }) : super(key: key);
 
   @override
   _AddNewTaskState createState() => _AddNewTaskState();
@@ -42,9 +35,8 @@ class _AddNewTaskState extends State<AddNewTask> {
       if (date == null) {
         return;
       }
-      date = date;
       setState(() {
-        _selectedDate = date!;
+        _selectedDate = date;
       });
     });
   }
@@ -103,81 +95,81 @@ class _AddNewTaskState extends State<AddNewTask> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text('Title', style: Theme.of(context).textTheme.titleSmall),
-            TextFormField(
-              initialValue:
-                  _inputDescription,
-              decoration: const InputDecoration(
-                hintText: 'Describe your task',
-              ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-              onSaved: (value) {
-                _inputDescription = value!;
-              },
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text('Due date', style: Theme.of(context).textTheme.titleSmall),
-            TextFormField(
-              onTap: () {
-                _pickUserDueDate();
-              },
-              readOnly: true,
-              decoration: InputDecoration(
-                hintText: _selectedDate == null
-                    ? 'Provide your due date'
-                    : DateFormat.yMMMd().format(_selectedDate).toString(),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text('Due time', style: Theme.of(context).textTheme.titleSmall),
-            TextFormField(
-              onTap: () {
-                _pickUserDueTime();
-              },
-              readOnly: true,
-              decoration: InputDecoration(
-                hintText: _selectedTime == null
-                    ? 'Provide your due time'
-                    : _selectedTime.format(context),
-              ),
-            ),
-            Container(
-              alignment: Alignment.bottomRight,
-              child: FlatButton(
-                child: Text(
-                  !widget.isEditMode ? 'ADD TASK' : 'EDIT TASK',
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontFamily: 'Lato',
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('Title', style: Theme.of(context).textTheme.headline6),
+              TextFormField(
+                initialValue: _inputDescription,
+                decoration: const InputDecoration(
+                  hintText: 'Describe your task',
                 ),
-                onPressed: () {
-                  _validateForm();
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _inputDescription = value!;
                 },
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 20,
+              ),
+              Text('Due date', style: Theme.of(context).textTheme.headline6),
+              TextFormField(
+                onTap: () {
+                  _pickUserDueDate();
+                },
+                readOnly: true,
+                decoration: InputDecoration(
+                  hintText: _selectedDate == null
+                      ? 'Provide your due date'
+                      : DateFormat.yMMMd().format(_selectedDate).toString(),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text('Due time', style: Theme.of(context).textTheme.headline6),
+              TextFormField(
+                onTap: () {
+                  _pickUserDueTime();
+                },
+                readOnly: true,
+                decoration: InputDecoration(
+                  hintText: _selectedTime == null
+                      ? 'Provide your due time'
+                      : _selectedTime.format(context),
+                ),
+              ),
+              Container(
+                alignment: Alignment.bottomRight,
+                child: FlatButton(
+                  child: Text(
+                    !widget.isEditMode ? 'ADD TASK' : 'EDIT TASK',
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontFamily: 'Lato',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: () {
+                    _validateForm();
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
-  
-  FlatButton({required Text child, required Null Function() onPressed}) {}
 }
+FlatButton({required Text child, required Null Function() onPressed}) {}
