@@ -80,7 +80,7 @@ class _AddNewTaskState extends State<AddNewTask> {
       Navigator.of(context).pop();
     }
   }
-
+  
   @override
   void initState() {
     if (widget.isEditMode) {
@@ -89,6 +89,9 @@ class _AddNewTaskState extends State<AddNewTask> {
       _selectedDate = task.dueDate;
       _selectedTime = task.dueTime;
       _inputDescription = task.description;
+    } else {
+      _inputDescription =
+          ''; // Initialize with an empty string for non-edit mode
     }
     super.initState();
   }

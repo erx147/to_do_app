@@ -91,7 +91,7 @@ class TaskProvider with ChangeNotifier {
   void AddNewTask(Task task) {
     _toDoList.add(task);
     notifyListeners();
-    // Optionally, save to file or API here
+    //save to file or API here
   }
 
   // Edit an existing task
