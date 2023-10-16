@@ -59,7 +59,7 @@ class _AddNewTaskState extends State<AddNewTask> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       if (!widget.isEditMode) {
-        Provider.of<TaskProvider>(context, listen: false).createNewTask(
+        Provider.of<TaskProvider>(context, listen: false).AddNewTask(
           Task(
             id: DateTime.now().toString(),
             description: _inputDescription,

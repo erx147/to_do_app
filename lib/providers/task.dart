@@ -18,29 +18,6 @@ class Task {
     required this.dueTime,
     this.isDone = false,
   });
-
-  // Convert a Task object into a Map object
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'description': description,
-      'dueDate': dueDate.toIso8601String(),
-      'dueTime': dueTime.format(TimeOfDay.now()
-          .toString() as BuildContext),
-      'isDone': isDone,
-    };
-  }
-
-  // Convert a Map object into a Task object
-  factory Task.fromMap(Map<String, dynamic> map) {
-    return Task(
-      id: map['id'],
-      description: map['description'],
-      dueDate: DateTime.parse(map['dueDate']),
-      dueTime: TimeOfDay.fromDateTime(DateTime.parse(map['dueTime'])),
-      isDone: map['isDone'],
-    );
-  }
 }
 
 class TaskProvider with ChangeNotifier {
@@ -51,7 +28,7 @@ class TaskProvider with ChangeNotifier {
   }
 
   final _baseUrl =
-      'https://your-api-endpoint.com/tasks'; // Replace with API endpoint
+      'https://your-api-endpoint.com/tasks'; // Replace with your API endpoint
 
   Future<File> get _localFile async {
     final directory = await getApplicationDocumentsDirectory();
@@ -60,8 +37,16 @@ class TaskProvider with ChangeNotifier {
 
   Future<void> saveTasks() async {
     final file = await _localFile;
-    final jsonString =
-        json.encode(_toDoList.map((task) => task.toMap()).toList());
+    final jsonString = json.encode(_toDoList
+        .map((task) => {
+              'id': task.id,
+              'description': task.description,
+              'dueDate': task.dueDate.toIso8601String(),
+              'dueTime': task.dueTime.format(TimeOfDay.now()
+                  .toString()), // Assuming you have a BuildContext available
+              'isDone': task.isDone,
+            })
+        .toList());
     await file.writeAsString(jsonString);
   }
 
@@ -70,7 +55,16 @@ class TaskProvider with ChangeNotifier {
       final file = await _localFile;
       final jsonString = await file.readAsString();
       final jsonData = json.decode(jsonString) as List;
-      _toDoList = jsonData.map((taskData) => Task.fromMap(taskData)).toList();
+      _toDoList = jsonData
+          .map((taskData) => Task(
+                id: taskData['id'],
+                description: taskData['description'],
+                dueDate: DateTime.parse(taskData['dueDate']),
+                dueTime:
+                    TimeOfDay.fromDateTime(DateTime.parse(taskData['dueTime'])),
+                isDone: taskData['isDone'],
+              ))
+          .toList();
       notifyListeners();
     } catch (error) {
       print('Error loading tasks: $error');
@@ -80,20 +74,38 @@ class TaskProvider with ChangeNotifier {
   Future<void> fetchTasksFromAPI() async {
     final response = await http.get(Uri.parse(_baseUrl));
     final jsonData = json.decode(response.body) as List;
-    _toDoList = jsonData.map((taskData) => Task.fromMap(taskData)).toList();
+    _toDoList = jsonData
+        .map((taskData) => Task(
+              id: taskData['id'],
+              description: taskData['description'],
+              dueDate: DateTime.parse(taskData['dueDate']),
+              dueTime:
+                  TimeOfDay.fromDateTime(DateTime.parse(taskData['dueTime'])),
+              isDone: taskData['isDone'],
+            ))
+        .toList();
     notifyListeners();
   }
 
-  Future<void> addTaskToAPI(Task task) async {
-    final response = await http.post(
-      Uri.parse(_baseUrl),
-      body: json.encode(task.toMap()),
-    );
-    if (response.statusCode == 201) {
-      _toDoList.add(task);
+  // Add a new task to the list
+  void AddNewTask(Task task) {
+    _toDoList.add(task);
+    notifyListeners();
+    // Optionally, save to file or API here
+  }
+
+  // Edit an existing task
+  void editTask(Task updatedTask) {
+    final taskIndex = _toDoList.indexWhere((task) => task.id == updatedTask.id);
+    if (taskIndex >= 0) {
+      _toDoList[taskIndex] = updatedTask;
       notifyListeners();
+      // Optionally, save to file or API here
     }
   }
 
-  // Similarly, you can add methods to update and delete tasks using PUT and DELETE HTTP methods.
+  // Get a task by its ID
+  Task getById(String id) {
+    return _toDoList.firstWhere((task) => task.id == id);
+  }
 }
