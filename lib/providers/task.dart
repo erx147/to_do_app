@@ -28,7 +28,7 @@ class TaskProvider with ChangeNotifier {
   }
 
   final _baseUrl =
-      'https://your-api-endpoint.com/tasks'; // Replace with your API endpoint
+      'https://your-api-endpoint.com/tasks';
 
   Future<File> get _localFile async {
     final directory = await getApplicationDocumentsDirectory();
@@ -43,7 +43,7 @@ class TaskProvider with ChangeNotifier {
               'description': task.description,
               'dueDate': task.dueDate.toIso8601String(),
               'dueTime': task.dueTime.format(TimeOfDay.now()
-                  .toString() as BuildContext), // Assuming you have a BuildContext available
+                  .toString() as BuildContext),
               'isDone': task.isDone,
             })
         .toList());
