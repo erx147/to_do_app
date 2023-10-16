@@ -43,7 +43,7 @@ class TaskProvider with ChangeNotifier {
               'description': task.description,
               'dueDate': task.dueDate.toIso8601String(),
               'dueTime': task.dueTime.format(TimeOfDay.now()
-                  .toString()), // Assuming you have a BuildContext available
+                  .toString() as BuildContext), // Assuming you have a BuildContext available
               'isDone': task.isDone,
             })
         .toList());
