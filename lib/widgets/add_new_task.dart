@@ -103,7 +103,7 @@ class _AddNewTaskState extends State<AddNewTask> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('Title', style: Theme.of(context).textTheme.headline6),
+              Text('Title', style: Theme.of(context).textTheme.titleLarge),
               TextFormField(
                 initialValue: _inputDescription,
                 decoration: const InputDecoration(
@@ -122,7 +122,7 @@ class _AddNewTaskState extends State<AddNewTask> {
               const SizedBox(
                 height: 20,
               ),
-              Text('Due date', style: Theme.of(context).textTheme.headline6),
+              Text('Due date', style: Theme.of(context).textTheme.titleLarge),
               TextFormField(
                 onTap: () {
                   _pickUserDueDate();
@@ -137,7 +137,7 @@ class _AddNewTaskState extends State<AddNewTask> {
               const SizedBox(
                 height: 20,
               ),
-              Text('Due time', style: Theme.of(context).textTheme.headline6),
+              Text('Due time', style: Theme.of(context).textTheme.titleLarge),
               TextFormField(
                 onTap: () {
                   _pickUserDueTime();
