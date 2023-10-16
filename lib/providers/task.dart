@@ -108,4 +108,21 @@ class TaskProvider with ChangeNotifier {
   Task getById(String id) {
     return _toDoList.firstWhere((task) => task.id == id);
   }
+
+  // Change the status of a task
+  void changeStatus(String taskId, bool newStatus) {
+    final taskIndex = _toDoList.indexWhere((task) => task.id == taskId);
+    if (taskIndex >= 0) {
+      _toDoList[taskIndex].isDone = newStatus;
+      notifyListeners();
+      // Optionally, save to file or API here
+    }
+  }
+
+  // Remove a task by its ID
+  void removeTask(String taskId) {
+    _toDoList.removeWhere((task) => task.id == taskId);
+    notifyListeners();
+    // Optionally, save to file or API here
+  }
 }
