@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do_list/screens/settingsScreen.dart';
+import 'package:to_do_list/screens/addTaskScreen.dart';
 
 import './providers/task.dart';
 import './screens/homepage.dart';
@@ -32,25 +34,38 @@ class ToDoListApp extends StatelessWidget {
                 ),
               ),
           appBarTheme: AppBarTheme(
-            toolbarTextStyle: ThemeData.light().textTheme.copyWith(
+            toolbarTextStyle: ThemeData.light()
+                .textTheme
+                .copyWith(
                   titleLarge: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'Lato',
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
-                ).bodyMedium, titleTextStyle: ThemeData.light().textTheme.copyWith(
+                )
+                .bodyMedium,
+            titleTextStyle: ThemeData.light()
+                .textTheme
+                .copyWith(
                   titleLarge: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'Lato',
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
-                ).titleLarge,
-          ), colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple).copyWith(secondary: Colors.yellow[700]),
+                )
+                .titleLarge,
+          ),
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
+              .copyWith(secondary: Colors.yellow[700]),
         ),
         title: 'To Do List',
         home: const Homepage(),
+        routes: {
+          '/add-task': (ctx) => AddTaskScreen(), // Route for AddTaskScreen
+          '/settings': (ctx) => SettingsScreen(), // Route for SettingsScreen
+        },
       ),
     );
   }

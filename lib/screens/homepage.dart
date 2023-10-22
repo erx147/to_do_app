@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/add_new_task.dart';
 import '../widgets/list.dart';
-
-//Homepage of the app. It allows the user to insert new tasks to his list.
-//It'll allow the user to add new lists too (later features).
 
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
@@ -15,24 +11,30 @@ class Homepage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('TO DO LIST'),
         actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (_) => const AddNewTask(isEditMode: false, id: '',),
-              );
+          PopupMenuButton<int>(
+            onSelected: (value) {
+              if (value == 1) {
+                Navigator.of(context)
+                    .pushNamed('/settings'); // Navigate to AddTaskScreen
+              }
+
             },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
+              const PopupMenuItem<int>(
+                value: 1,
+                child: Text('View Settings'),
+              ),
+              // Add more items to the menu if needed
+            ],
+            icon: const Icon(Icons.more_vert), // Three-dot icon
           ),
         ],
       ),
       body: const List(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            builder: (_) => const AddNewTask(isEditMode: false, id: '',),
-          );
+          Navigator.of(context)
+              .pushNamed('/add-task'); // Navigate to AddTaskScreen
         },
         tooltip: 'Add a new item!',
         child: const Icon(Icons.add),
