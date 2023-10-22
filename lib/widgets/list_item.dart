@@ -29,7 +29,6 @@ class _ListItemState extends State<ListItem> {
       setState(() {
         Provider.of<TaskProvider>(context, listen: false)
             .changeStatus(widget.task.id, !widget.task.isDone);
-        //print('SET STATE ${widget.task.isDone.toString()}');
       });
     }
 

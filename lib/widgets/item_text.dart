@@ -96,12 +96,10 @@ class ItemText extends StatelessWidget {
     }
   
     return Container();
-    //What would be a better approach?
   }
 
   @override
   Widget build(BuildContext context) {
     return _buildText(context);
-    //Search if it's ok to return something like this :P
   }
 }
