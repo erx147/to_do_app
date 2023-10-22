@@ -59,7 +59,7 @@ class _AddNewTaskState extends State<AddNewTask> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       if (!widget.isEditMode) {
-        Provider.of<TaskProvider>(context, listen: false).AddNewTask(
+        Provider.of<TaskProvider>(context, listen: false).addNewTask(
           Task(
             id: DateTime.now().toString(),
             description: _inputDescription,
@@ -80,7 +80,7 @@ class _AddNewTaskState extends State<AddNewTask> {
       Navigator.of(context).pop();
     }
   }
-  
+
   @override
   void initState() {
     if (widget.isEditMode) {
@@ -132,9 +132,7 @@ class _AddNewTaskState extends State<AddNewTask> {
                 },
                 readOnly: true,
                 decoration: InputDecoration(
-                  hintText: _selectedDate == null
-                      ? 'Provide your due date'
-                      : DateFormat.yMMMd().format(_selectedDate).toString(),
+                  hintText: DateFormat.yMMMd().format(_selectedDate).toString(),
                 ),
               ),
               const SizedBox(
@@ -147,14 +145,12 @@ class _AddNewTaskState extends State<AddNewTask> {
                 },
                 readOnly: true,
                 decoration: InputDecoration(
-                  hintText: _selectedTime == null
-                      ? 'Provide your due time'
-                      : _selectedTime.format(context),
+                  hintText: _selectedTime.format(context),
                 ),
               ),
               Container(
                 alignment: Alignment.bottomRight,
-                child: FlatButton(
+                child: TextButton(
                   child: Text(
                     !widget.isEditMode ? 'ADD TASK' : 'EDIT TASK',
                     style: TextStyle(
@@ -175,4 +171,3 @@ class _AddNewTaskState extends State<AddNewTask> {
     );
   }
 }
-FlatButton({required Text child, required Null Function() onPressed}) {}

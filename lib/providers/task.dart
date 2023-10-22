@@ -27,8 +27,7 @@ class TaskProvider with ChangeNotifier {
     return _toDoList;
   }
 
-  final _baseUrl =
-      'https://your-api-endpoint.com/tasks';
+  final _baseUrl = 'https://your-api-endpoint.com/tasks';
 
   Future<File> get _localFile async {
     final directory = await getApplicationDocumentsDirectory();
@@ -42,8 +41,8 @@ class TaskProvider with ChangeNotifier {
               'id': task.id,
               'description': task.description,
               'dueDate': task.dueDate.toIso8601String(),
-              'dueTime': task.dueTime.format(TimeOfDay.now()
-                  .toString() as BuildContext),
+              'dueTime': task.dueTime
+                  .format(TimeOfDay.now().toString() as BuildContext),
               'isDone': task.isDone,
             })
         .toList());
@@ -88,10 +87,10 @@ class TaskProvider with ChangeNotifier {
   }
 
   // Add a new task to the list
-  void AddNewTask(Task task) {
+  void addNewTask(Task task) {
     _toDoList.add(task);
     notifyListeners();
-    //save to file or API here
+    // Optionally, save to file or API here
   }
 
   // Edit an existing task
@@ -115,7 +114,6 @@ class TaskProvider with ChangeNotifier {
     if (taskIndex >= 0) {
       _toDoList[taskIndex].isDone = newStatus;
       notifyListeners();
-      // Optionally, save to file or API here
     }
   }
 
@@ -123,6 +121,5 @@ class TaskProvider with ChangeNotifier {
   void removeTask(String taskId) {
     _toDoList.removeWhere((task) => task.id == taskId);
     notifyListeners();
-    // Optionally, save to file or API here
   }
 }
