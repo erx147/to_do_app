@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_list/screens/settingsScreen.dart';
-import 'package:to_do_list/screens/addTaskScreen.dart';
+import 'package:to_do_app/screens/settingsScreen.dart';
+import 'package:to_do_app/screens/addTaskScreen.dart';
 
 import './providers/task.dart';
 import './screens/homepage.dart';
