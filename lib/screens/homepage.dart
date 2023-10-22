@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/screens/settingsScreen.dart';
 import 'addTaskScreen.dart'; // Import the AddTaskScreen
 
 class Homepage extends StatelessWidget {
@@ -8,17 +9,21 @@ class Homepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('TO DO LIST'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              // Navigate to AddTaskScreen
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AddTaskScreen()),
-              );
+        title: const Text('To Do List'),
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              if (value == 'Settings') {
+                Navigator.of(context).pushNamed('/settings');
+              }
             },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              const PopupMenuItem<String>(
+                value: 'Settings',
+                child: Text('Settings'),
+              ),
+            ],
+            icon: Icon(Icons.more_vert), // This is the three-dot icon
           ),
         ],
       ),
