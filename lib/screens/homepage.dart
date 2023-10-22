@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../widgets/list.dart';
+import 'addTaskScreen.dart'; // Import the AddTaskScreen
 
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
@@ -11,30 +10,26 @@ class Homepage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('TO DO LIST'),
         actions: <Widget>[
-          PopupMenuButton<int>(
-            onSelected: (value) {
-              if (value == 1) {
-                Navigator.of(context)
-                    .pushNamed('/settings'); // Navigate to AddTaskScreen
-              }
-
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              // Navigate to AddTaskScreen
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddTaskScreen()),
+              );
             },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
-              const PopupMenuItem<int>(
-                value: 1,
-                child: Text('View Settings'),
-              ),
-              // Add more items to the menu if needed
-            ],
-            icon: const Icon(Icons.more_vert), // Three-dot icon
           ),
         ],
       ),
-      body: const List(),
+      body: Container(), // Empty container as the body
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context)
-              .pushNamed('/add-task'); // Navigate to AddTaskScreen
+          // Navigate to AddTaskScreen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddTaskScreen()),
+          );
         },
         tooltip: 'Add a new item!',
         child: const Icon(Icons.add),
